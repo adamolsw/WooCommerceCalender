@@ -63,86 +63,6 @@ namespace WooCommerceApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap blue_arrow_png {
-            get {
-                object obj = ResourceManager.GetObject("blue-arrow-png", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap blue_arrow_png_1_ {
-            get {
-                object obj = ResourceManager.GetObject("blue-arrow-png(1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap blue_arrow_png_2_ {
-            get {
-                object obj = ResourceManager.GetObject("blue-arrow-png(2)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap blue_arrow_png1 {
-            get {
-                object obj = ResourceManager.GetObject("blue-arrow-png1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap blue_arrow_png2 {
-            get {
-                object obj = ResourceManager.GetObject("blue-arrow-png2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ddd1c2476bcb099d675bf282f0a40192 {
-            get {
-                object obj = ResourceManager.GetObject("ddd1c2476bcb099d675bf282f0a40192", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ddd1c2476bcb099d675bf282f0a40192_1_ {
-            get {
-                object obj = ResourceManager.GetObject("ddd1c2476bcb099d675bf282f0a40192(1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap kindpng_105650_1_ {
-            get {
-                object obj = ResourceManager.GetObject("kindpng_105650(1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap kindpng_105650_2_ {
             get {
                 object obj = ResourceManager.GetObject("kindpng_105650(2)", resourceCulture);
@@ -156,16 +76,6 @@ namespace WooCommerceApp.Properties {
         internal static System.Drawing.Bitmap kindpng_105650_3_ {
             get {
                 object obj = ResourceManager.GetObject("kindpng_105650(3)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap navigation_000_button_icon {
-            get {
-                object obj = ResourceManager.GetObject("navigation-000-button-icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
