@@ -23,7 +23,7 @@ namespace WooCommerceWorkerService
             while (!stoppingToken.IsCancellationRequested)
             {
                 WooCommerceService wooCommerceService = new WooCommerceService();
-                //wooCommerceService.GetAllProductsAsync();
+                wooCommerceService.GetAllProductsAsync();
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }
