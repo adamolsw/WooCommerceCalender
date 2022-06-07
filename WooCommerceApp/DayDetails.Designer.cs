@@ -92,7 +92,7 @@ namespace WooCommerceApp
             this.lbDayMonthYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(53)))), ((int)(((byte)(111)))));
             this.lbDayMonthYear.Location = new System.Drawing.Point(0, 0);
             this.lbDayMonthYear.Name = "lbDayMonthYear";
-            this.lbDayMonthYear.Size = new System.Drawing.Size(276, 48);
+            this.lbDayMonthYear.Size = new System.Drawing.Size(525, 48);
             this.lbDayMonthYear.TabIndex = 11;
             this.lbDayMonthYear.Text = "MONTH YEAR";
             this.lbDayMonthYear.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WooCommerceWorkerService.Services;
 
 namespace WooCommerceWorkerService
 {
@@ -11,6 +12,7 @@ namespace WooCommerceWorkerService
     {
         public static void Main(string[] args)
         {
+            var serviceProvider = ConfigureServices();
             CreateHostBuilder(args).Build().Run();
         }
 
@@ -21,5 +23,18 @@ namespace WooCommerceWorkerService
                 {
                     services.AddHostedService<Worker>();
                 });
+
+
+        private static ServiceProvider ConfigureServices()
+        {
+            var services = new ServiceCollection();
+            //services.AddLogging(builder => builder.AddNLog("nlog.config"));
+
+            services.AddScoped<IDbService, DbService>()
+                    .AddScoped<IWooCommerceService, WooCommerceService>()
+                    .AddScoped<IProcessService, ProcessService>();
+
+            return services.BuildServiceProvider();
+        }
     }
 }

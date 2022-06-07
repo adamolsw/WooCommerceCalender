@@ -8,25 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WooCommerceApp.Enums;
+using WooCommerceWorkerService.Services;
 
 namespace WooCommerceApp
 {
     public partial class UserControlDays : UserControl
     {
+        private IDbService _dbService;
+
         public int Year { get; set; }
         public int Month { get; set; }
         public int Day { get; set; }
-        public UserControlDays()
+        public UserControlDays(IDbService dbService)
         {
+            _dbService = dbService;
             InitializeComponent();
         }
 
         private void UserControlDays_Load(object sender, EventArgs e)
         {
-            DayDetails dayDetails = new DayDetails();
-            //dayDetails.Year = Year;
-            //dayDetails.Month = Month;
-            //dayDetails.Day = Day;
+            DayDetails dayDetails = new DayDetails(_dbService);
             dayDetails.CurrentDateTime = new DateTime(Year, Month, Day);
             dayDetails.SetlbDayMonthYear(); 
             dayDetails.Show();

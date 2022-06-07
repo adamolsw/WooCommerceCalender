@@ -15,10 +15,12 @@ using WooCommerceWorkerService.Mapper;
 
 namespace WooCommerceWorkerService.Services
 {
-    public class WooCommerceService
+    public class WooCommerceService : IWooCommerceService
     {
-        private const string URL = "https://hashtagdietcatering.pl/wp-json/wc/v3/orders";
+        private const string URL = "https://hashtagdietcatering.pl/wp-json/wc/v3/";
         private string urlParameters = "?consumer_secret=cs_4a6d797f575a3b795255f7e5a8c6b0c61c87b372&consumer_key=ck_9b6d85e5d46e4eb8c3df394c110fa829be8b9600&fbclid";
+
+        public object AddOrder { get; private set; }
 
         public void GetAllProductsAsync()
         {
@@ -26,10 +28,47 @@ namespace WooCommerceWorkerService.Services
             List<DbOrderModel> dbOrderModels = new List<DbOrderModel>();
             HttpClient client = new HttpClient();
             client.BaseAddress = new Uri(URL);
+            DbService dbService = new DbService();
 
             // Add an Accept header for JSON format.
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result; 
+            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                // Parse the response body.
+                var dataObjects = response.Content.ReadAsStringAsync().Result.Replace("&", "").Replace("#", "").Replace(";", "");
+                var result = JsonConvert.DeserializeObject<IEnumerable<RawOrderModel>>(dataObjects);
+
+                foreach (var item in result)
+                {
+                    //dbOrderModels.Add(customMapper.MapRawOrderToDbOrder(item));
+                    //dbService.GetAddresses();
+                    dbService.AddOrder(customMapper.MapRawOrderToDbOrder(item));
+                }
+            }
+            else
+            {
+                Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+            }
+        }
+
+        public List<DbOrderModel> GetOrders(string newerThan, int page = 1)
+        {
+            if(newerThan == null)
+            {
+                newerThan = "2000-01-01T00:00:00";
+            }
+            var urlEndpoint = "orders";
+            urlParameters = string.Concat(urlParameters, "&order=asc&after=", newerThan);
+            CustomMapper customMapper = new CustomMapper();
+            List<DbOrderModel> dbOrderModels = new List<DbOrderModel>();
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(string.Concat(URL, urlEndpoint));
+            DbService dbService = new DbService();
+
+            // Add an Accept header for JSON format.
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
             if (response.IsSuccessStatusCode)
             {
                 // Parse the response body.
@@ -39,12 +78,15 @@ namespace WooCommerceWorkerService.Services
                 foreach (var item in result)
                 {
                     dbOrderModels.Add(customMapper.MapRawOrderToDbOrder(item));
+                    //dbService.GetAddresses();
+                    //dbService.AddOrder(customMapper.MapRawOrderToDbOrder(item));
                 }
             }
             else
             {
                 Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
             }
+            return dbOrderModels;
         }
     }
 }

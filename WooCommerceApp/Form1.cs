@@ -9,14 +9,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WooCommerceApp.Enums;
+using WooCommerceWorkerService.Services;
+using WooCommerceApp.Utils;
 
 namespace WooCommerceApp
 {
     public partial class Form1 : Form
     {
         private int _month, _year, _currentMonth, _currentYear, _currentDay;
-        public Form1()
+        private IDbService _dbService;
+
+        public Form1(IDbService dbService)
         {
+            _dbService = dbService;
             InitializeComponent();
         }
 
@@ -127,7 +132,7 @@ namespace WooCommerceApp
 
             for (int i = 1; i <= daysInMonth; i++)
             {
-                UserControlDays userControlDays = new UserControlDays();
+                UserControlDays userControlDays = new UserControlDays(_dbService);
                 if(_currentDay == i && _currentMonth == _month && _currentYear == _year)
                 {
                     userControlDays.BackColor = Color.FromArgb(15, 53, 111);
@@ -135,14 +140,21 @@ namespace WooCommerceApp
                 }
 
                 DateTime processingDay = new DateTime(_year, _month, i);
-                if(IsSunday(processingDay))
+                if(processingDay.IsSunday())
                 {
                     userControlDays.SetlbDaysTextColor(Color.FromArgb(219, 92, 33));
                 }
 
-                Random rnd = new Random();
-                int num = rnd.Next(1, 100);
-                userControlDays.SetlbNumOfOrdersText(num);
+                if (processingDay.IsSunday() || processingDay.IsSaturday())
+                {
+                    userControlDays.SetlbNumOfOrdersText(0);
+                }
+                else
+                {
+                    var orders = _dbService.GetOrdersForSingleDayByDay(processingDay.ToString("yyyy-MM-dd"));
+                    userControlDays.SetlbNumOfOrdersText(orders.Count);
+                }
+
 
                 userControlDays.Days(i);
                 dayContainer.Controls.Add(userControlDays);
@@ -151,11 +163,6 @@ namespace WooCommerceApp
                 userControlDays.Month = _month;
                 userControlDays.Day = i;
             }
-        }
-
-        private bool IsSunday(DateTime dateTime)
-        {
-           return dateTime.DayOfWeek == DayOfWeek.Sunday;
         }
 
         private void lbMonthYear_Click(object sender, EventArgs e)

@@ -9,11 +9,11 @@ namespace WooCommerceDomain.Models
         [DisplayName("Nazwisko")]
         public string LastName { get; set; }
         [DisplayName("Dieta")]
-        public string DietName { get; set; }
+        public string ProductName { get; set; }
         [DisplayName("Kalorie")]
-        public string Kcal { get; set; }
+        public string DietDescription { get; set; }
         [DisplayName("Ulica")]
-        public string Address { get; set; }
+        public string Street { get; set; }
         [DisplayName("Miasto")]
         public string City { get; set; }
         [DisplayName("Kod pocztowy")]
@@ -22,7 +22,5 @@ namespace WooCommerceDomain.Models
         public string Phone { get; set; }
         [DisplayName("Email")]
         public string Email { get; set; }
-        [DisplayName("Notatka klienta")]
-        public string CustomerNote { get; set; }
     }
 }

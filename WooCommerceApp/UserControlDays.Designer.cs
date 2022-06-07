@@ -70,7 +70,7 @@ namespace WooCommerceApp
             this.lbDescriptionNumOfOrders.Name = "lbDescriptionNumOfOrders";
             this.lbDescriptionNumOfOrders.Size = new System.Drawing.Size(112, 19);
             this.lbDescriptionNumOfOrders.TabIndex = 2;
-            this.lbDescriptionNumOfOrders.Text = "Ilość zamowień:";
+            this.lbDescriptionNumOfOrders.Text = "Ilość zamówień:";
             this.lbDescriptionNumOfOrders.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lbDescriptionNumOfOrders.Click += new System.EventHandler(this.UserControlDays_Load);
             // 
