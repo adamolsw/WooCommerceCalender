@@ -13,16 +13,10 @@ namespace WooCommerceWorkerService.Services
 {
     public class DbService : IDbService
     {
-        private IConfiguration _configuration;
-
-        public DbService()
-        {
-            //_configuration = configuration;
-        }
 
         public void AddOrder(DbOrderModel dbOrderModel)
         {
-            using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");//(_configuration.GetConnectionString("ConnectionString"));
+            using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
 
             var addressId = db.QuerySingle<int>(@" INSERT INTO Address (Street, City, PostCode) OUTPUT INSERTED.Id VALUES (@Street, @City, @PostCode);", new { dbOrderModel.Client.Address.Street, dbOrderModel.Client.Address.City, dbOrderModel.Client.Address.PostCode });
             var clientId = db.QuerySingle<int>(@" INSERT INTO Client (FirstName, LastName, Email, Phone, AddressId) OUTPUT INSERTED.Id VALUES (@FirstName, @LastName, @Email, @Phone, @AddressId);", new { dbOrderModel.Client.FirstName, dbOrderModel.Client.LastName, dbOrderModel.Client.Email, dbOrderModel.Client.Phone, addressId });
@@ -30,14 +24,12 @@ namespace WooCommerceWorkerService.Services
                             , new { dbOrderModel.Id, dbOrderModel.Status, dbOrderModel.DateCreated, dbOrderModel.ProductName, dbOrderModel.Total, dbOrderModel.DaysCount, dbOrderModel.DateStart, dbOrderModel.DateEnd, dbOrderModel.DietDescription, clientId });
         }
 
-        public void GetAddresses()
+        public List<DbProductModel> GetProducts()
         {
             var sql = new StringBuilder();
-
-            sql.Append("SELECT * FROM Address");
-
+            sql.Append("SELECT Id, Name FROM [Product]");
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
-            var tt = db.Query(sql.ToString());
+            return db.Query<DbProductModel>(sql.ToString()).ToList();
         }
 
         public string GetCreateDateOfLastOrder()
@@ -71,6 +63,43 @@ namespace WooCommerceWorkerService.Services
             var sqlQuery = "INSERT INTO ExcludedDays VALUES (@orderID, @date)";
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
             db.Execute(sqlQuery, new { orderId, date });
+        }
+
+        public void AddProducts(List<DbProductModel> product)
+        {
+            var sqlQueries = GetProductSqlsInBatchesToInsert(product);
+            using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
+            db.Execute("DELETE FROM [Product]");
+            foreach (var sqlQuery in sqlQueries)
+            {
+                 db.Execute(sqlQuery);
+            }
+        }
+
+        public int GetMaxOrderid()
+        {
+            var sql = new StringBuilder();
+            sql.Append("Select MAX(id) FROM [Order]");
+            using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
+            return db.QuerySingle<int>(sql.ToString());
+        }
+
+
+        private static IList<string> GetProductSqlsInBatchesToInsert(List<DbProductModel> lookupData)
+        {
+            var insertSql = "INSERT INTO [Product] VALUES ";
+            var valuesSql = "('{0}', '{1}')";
+            var batchSize = 1000;
+            var sqlsToExecute = new List<string>();
+            var numberOfBatches = (int)Math.Ceiling((double)lookupData.Count / batchSize);
+
+            for (int i = 0; i < numberOfBatches; i++)
+            {
+                var dataToInsert = lookupData.Skip(i * batchSize).Take(batchSize);
+                var valuesToInsert = dataToInsert.Select(u => string.Format(valuesSql, u.Id, u.Name));
+                sqlsToExecute.Add(insertSql + string.Join(',', valuesToInsert));
+            }
+            return sqlsToExecute;
         }
     }
 }

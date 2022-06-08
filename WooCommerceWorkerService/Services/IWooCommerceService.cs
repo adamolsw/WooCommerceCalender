@@ -7,7 +7,7 @@ namespace WooCommerceWorkerService.Services
     {
         object AddOrder { get; }
 
-        void GetAllProductsAsync();
+        List<DbProductModel> GetAllProductsAsync();
         List<DbOrderModel> GetOrders(string newerThan, int page = 1);
     }
 }

@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WooCommerceApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10</Value>
+    </Setting>
+    <Setting Name="SecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">ck_9b6d85e5d46e4eb8c3df394c110fa829be8b9600&amp;fbclid</Value>
+    </Setting>
+    <Setting Name="ConsumerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cs_4a6d797f575a3b795255f7e5a8c6b0c61c87b372</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

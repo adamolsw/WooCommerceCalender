@@ -55,6 +55,15 @@ namespace WooCommerceWorkerService.Mapper
             };
         }
 
+        public DbProductModel MapRawProductToDbProduct(RawProductModel rawProductModel)
+        {
+            return new DbProductModel
+            {
+                Id = rawProductModel.Id,
+                Name = rawProductModel.Name
+            };
+        }
+
         private string GetStartDay(List<MetaDataModel> metaDataModels)
         {
             try
@@ -129,7 +138,13 @@ namespace WooCommerceWorkerService.Mapper
         {
             try
             {
-                return metaDatalist.Where(m => !m.Key.Equals("Ilość dni") && !m.Key.Equals("Data rozpoczęcia") && !m.Key.Equals("Miasto")).FirstOrDefault().Value;
+                var result =  metaDatalist.Where(m => !m.Key.Equals("Ilość dni") && !m.Key.Equals("Data rozpoczęcia") && !m.Key.Equals("Miasto")).FirstOrDefault().Value;
+                var indexOfLastCorrectChar = result.LastIndexOf('(');
+                if(indexOfLastCorrectChar > 0)
+                {
+                    result = result.Substring(0, indexOfLastCorrectChar);
+                }
+                return result;
             }
             catch (Exception)
             {

@@ -130,6 +130,7 @@ namespace WooCommerceApp
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblConfirm);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RemoveDayPerOrder";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Ostrzeżenie";

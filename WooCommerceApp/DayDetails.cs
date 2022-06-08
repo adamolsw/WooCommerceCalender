@@ -113,6 +113,9 @@ namespace WooCommerceApp
 
         private void label2_Click(object sender, EventArgs e)
         {
+            AddOrder addOrder = new AddOrder(_dbService);
+            addOrder.CurrentDateTime = CurrentDateTime;
+            addOrder.ShowDialog();
         }
 
         private void btnRemove_Click(object sender, EventArgs e)

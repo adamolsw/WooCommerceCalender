@@ -1,7 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using NLog.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WooCommerceWorkerService.Services;
@@ -18,8 +17,13 @@ namespace WooCommerceApp
         {
             var serviceProvider = ConfigureServices();
             var processService = serviceProvider.GetService<IProcessService>();
-            var dbService = serviceProvider.GetService<IDbService>();
-            await processService.RunAsync();
+            try
+            {
+                await processService.RunAsync();
+            }
+            catch (Exception)
+            {
+            }
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
@@ -31,7 +35,7 @@ namespace WooCommerceApp
         private static ServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
-            //services.AddLogging(builder => builder.AddNLog("nlog.config"));
+            services.AddLogging(builder => builder.AddNLog("nlog.config"));
 
             services.AddScoped<IDbService, DbService>()
                     .AddScoped<IWooCommerceService, WooCommerceService>()

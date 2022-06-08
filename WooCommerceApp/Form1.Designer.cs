@@ -29,6 +29,7 @@ namespace WooCommerceApp
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.dayContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.lbMonthYear = new System.Windows.Forms.Label();
             this.lbArrowNext = new System.Windows.Forms.Label();
@@ -203,6 +204,7 @@ namespace WooCommerceApp
             this.Controls.Add(this.lbMonthYear);
             this.Controls.Add(this.dayContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
