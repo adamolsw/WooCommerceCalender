@@ -60,7 +60,10 @@ namespace WooCommerceApp
                 dgvSummary.DataSource = GetSummary(orders);
                 dgvDailyDetails.DataSource = orders;
                 dgvDailyDetails.Columns[0].Visible = false;
-                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                if (dgvDailyDetails.Rows.Count > 0)
+                {
+                    dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                }
             }
             else
             {
@@ -83,7 +86,10 @@ namespace WooCommerceApp
                 dgvSummary.DataSource = GetSummary(orders);
                 dgvDailyDetails.DataSource = orders;
                 dgvDailyDetails.Columns[0].Visible = false;
-                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                if (dgvDailyDetails.Rows.Count > 0)
+                {
+                    dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                }
             }
             else
             {
@@ -141,7 +147,10 @@ namespace WooCommerceApp
                 dgvSummary.DataSource = GetSummary(orders);
                 dgvDailyDetails.DataSource = orders;
                 dgvDailyDetails.Columns[0].Visible = false;
-                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                if(dgvDailyDetails.Rows.Count> 0)
+                {
+                    dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+                }                
             }
             else
             {

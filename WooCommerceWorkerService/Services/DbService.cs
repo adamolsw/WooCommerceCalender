@@ -22,6 +22,7 @@ namespace WooCommerceWorkerService.Services
             var clientId = db.QuerySingle<int>(@" INSERT INTO Client (FirstName, LastName, Email, Phone, AddressId) OUTPUT INSERTED.Id VALUES (@FirstName, @LastName, @Email, @Phone, @AddressId);", new { dbOrderModel.Client.FirstName, dbOrderModel.Client.LastName, dbOrderModel.Client.Email, dbOrderModel.Client.Phone, addressId });
             var tt = db.QuerySingle<int>(@" INSERT INTO [Order] (Id, Status, DateCreated, ProductName, Total, DaysCount, DateStart, DateEnd, DietDescription, ClientId) OUTPUT INSERTED.Id VALUES (@Id, @Status, @DateCreated, @ProductName, @Total, @DaysCount, @DateStart, @DateEnd, @DietDescription, @ClientId)"
                             , new { dbOrderModel.Id, dbOrderModel.Status, dbOrderModel.DateCreated, dbOrderModel.ProductName, dbOrderModel.Total, dbOrderModel.DaysCount, dbOrderModel.DateStart, dbOrderModel.DateEnd, dbOrderModel.DietDescription, clientId });
+
         }
 
         public List<DbProductModel> GetProducts()
@@ -58,7 +59,7 @@ namespace WooCommerceWorkerService.Services
             return db.Query<DayDetailsModel>(sql.ToString(), new { date }).ToList();
         }
 
-        public void  AddExcludedDay(int orderId, DateTime date)
+        public void AddExcludedDay(int orderId, DateTime date)
         {
             var sqlQuery = "INSERT INTO ExcludedDays VALUES (@orderID, @date)";
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
@@ -72,7 +73,7 @@ namespace WooCommerceWorkerService.Services
             db.Execute("DELETE FROM [Product]");
             foreach (var sqlQuery in sqlQueries)
             {
-                 db.Execute(sqlQuery);
+                db.Execute(sqlQuery);
             }
         }
 
@@ -81,7 +82,14 @@ namespace WooCommerceWorkerService.Services
             var sql = new StringBuilder();
             sql.Append("Select MAX(id) FROM [Order]");
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
-            return db.QuerySingle<int>(sql.ToString());
+            try
+            {
+                return db.QuerySingle<int>(sql.ToString());
+            }
+            catch (Exception)
+            {
+                return 1;
+            }
         }
 
 

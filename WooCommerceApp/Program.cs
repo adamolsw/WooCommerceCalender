@@ -20,6 +20,7 @@ namespace WooCommerceApp
             try
             {
                 await processService.RunAsync();
+
             }
             catch (Exception)
             {

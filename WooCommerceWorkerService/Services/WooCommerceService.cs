@@ -37,22 +37,29 @@ namespace WooCommerceWorkerService.Services
             client.BaseAddress = new Uri(string.Concat(URL, urlEndpoint));
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var dataObjects = response.Content.ReadAsStringAsync().Result;
-                var result = JsonConvert.DeserializeObject<IEnumerable<RawProductModel>>(dataObjects);
-
-                foreach (var item in result)
+                HttpResponseMessage response = client.GetAsync(urlParameters).Result; if (response.IsSuccessStatusCode)
                 {
-                    _logger.LogInformation($"The product with Id {item.Id} has been downloaded");
-                    dbOrderModels.Add(customMapper.MapRawProductToDbProduct(item));
+                    var dataObjects = response.Content.ReadAsStringAsync().Result;
+                    var result = JsonConvert.DeserializeObject<IEnumerable<RawProductModel>>(dataObjects);
+
+                    foreach (var item in result)
+                    {
+                        _logger.LogInformation($"The product with Id {item.Id} has been downloaded");
+                        dbOrderModels.Add(customMapper.MapRawProductToDbProduct(item));
+                    }
+                }
+                else
+                {
+                    _logger.LogError("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
                 }
             }
-            else
+            catch (Exception e)
             {
-                _logger.LogError("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                _logger.LogError(e, "");
             }
+            
             _logger.LogInformation("End - Get all products from API");
             return dbOrderModels;
         }
@@ -72,21 +79,29 @@ namespace WooCommerceWorkerService.Services
             client.BaseAddress = new Uri(string.Concat(URL, urlEndpoint));
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            HttpResponseMessage response = client.GetAsync(urlParameters).Result;
-            if (response.IsSuccessStatusCode)
+            try
             {
-                var dataObjects = response.Content.ReadAsStringAsync().Result.Replace("&", "").Replace("#", "").Replace(";", "");
-                var result = JsonConvert.DeserializeObject<IEnumerable<RawOrderModel>>(dataObjects);
-
-                foreach (var item in result)
+                HttpResponseMessage response = client.GetAsync(urlParameters).Result;
+                if (response.IsSuccessStatusCode)
                 {
-                    _logger.LogInformation($"The Order with Id {item.Id} has been downloaded");
-                    dbOrderModels.Add(customMapper.MapRawOrderToDbOrder(item));
+                    var dataObjects = response.Content.ReadAsStringAsync().Result.Replace("&", "").Replace("#", "").Replace(";", "");
+                    var result = JsonConvert.DeserializeObject<IEnumerable<RawOrderModel>>(dataObjects);
+
+                    foreach (var item in result)
+                    {
+                        _logger.LogInformation($"The Order with Id {item.Id} has been downloaded");
+                        dbOrderModels.Add(customMapper.MapRawOrderToDbOrder(item));
+                    }
                 }
+                else
+                {
+                    _logger.LogError("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                }
+
             }
-            else
+            catch (Exception e)
             {
-                _logger.LogError("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                _logger.LogError(e, "");
             }
             _logger.LogInformation("End - Get all orders from API");
             return dbOrderModels;
