@@ -46,7 +46,7 @@ namespace WooCommerceApp
             // 
             // dayContainer
             // 
-            this.dayContainer.BackColor = System.Drawing.Color.Black;
+            this.dayContainer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.dayContainer.Location = new System.Drawing.Point(9, 112);
             this.dayContainer.Name = "dayContainer";
             this.dayContainer.Size = new System.Drawing.Size(1316, 642);
@@ -55,9 +55,9 @@ namespace WooCommerceApp
             // 
             // lbMonthYear
             // 
-            this.lbMonthYear.BackColor = System.Drawing.Color.Black;
+            this.lbMonthYear.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbMonthYear.Font = new System.Drawing.Font("Calibri", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbMonthYear.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(53)))), ((int)(((byte)(111)))));
+            this.lbMonthYear.ForeColor = System.Drawing.Color.Black;
             this.lbMonthYear.Location = new System.Drawing.Point(9, -2);
             this.lbMonthYear.Name = "lbMonthYear";
             this.lbMonthYear.Size = new System.Drawing.Size(276, 44);
@@ -70,7 +70,7 @@ namespace WooCommerceApp
             // 
             this.lbArrowNext.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbArrowNext.ForeColor = System.Drawing.Color.White;
-            this.lbArrowNext.Image = global::WooCommerceApp.Properties.Resources.kindpng_105650_2_;
+            this.lbArrowNext.Image = global::WooCommerceApp.Properties.Resources.arrowRight_1_;
             this.lbArrowNext.Location = new System.Drawing.Point(1262, 9);
             this.lbArrowNext.Name = "lbArrowNext";
             this.lbArrowNext.Size = new System.Drawing.Size(62, 33);
@@ -83,7 +83,7 @@ namespace WooCommerceApp
             // 
             this.lbArrowPrevious.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbArrowPrevious.ForeColor = System.Drawing.Color.White;
-            this.lbArrowPrevious.Image = global::WooCommerceApp.Properties.Resources.kindpng_105650_3_;
+            this.lbArrowPrevious.Image = global::WooCommerceApp.Properties.Resources.arrowLeft_1_1;
             this.lbArrowPrevious.Location = new System.Drawing.Point(1194, 9);
             this.lbArrowPrevious.Name = "lbArrowPrevious";
             this.lbArrowPrevious.Size = new System.Drawing.Size(62, 33);
@@ -94,7 +94,7 @@ namespace WooCommerceApp
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.flowLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.flowLayoutPanel1.Controls.Add(this.label8);
             this.flowLayoutPanel1.Controls.Add(this.label9);
             this.flowLayoutPanel1.Controls.Add(this.label10);
@@ -109,7 +109,7 @@ namespace WooCommerceApp
             // 
             // label8
             // 
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label8.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label8.Location = new System.Drawing.Point(3, 0);
@@ -121,7 +121,7 @@ namespace WooCommerceApp
             // 
             // label9
             // 
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label9.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label9.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label9.Location = new System.Drawing.Point(191, 0);
@@ -133,7 +133,7 @@ namespace WooCommerceApp
             // 
             // label10
             // 
-            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label10.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label10.Location = new System.Drawing.Point(379, 0);
@@ -145,7 +145,7 @@ namespace WooCommerceApp
             // 
             // label11
             // 
-            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label11.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label11.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label11.Location = new System.Drawing.Point(567, 0);
@@ -157,7 +157,7 @@ namespace WooCommerceApp
             // 
             // label12
             // 
-            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label12.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label12.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label12.Location = new System.Drawing.Point(755, 0);
@@ -169,7 +169,7 @@ namespace WooCommerceApp
             // 
             // label13
             // 
-            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label13.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label13.Location = new System.Drawing.Point(943, 0);
@@ -181,7 +181,7 @@ namespace WooCommerceApp
             // 
             // label14
             // 
-            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.label14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(180)))), ((int)(((byte)(189)))));
             this.label14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label14.Location = new System.Drawing.Point(1131, 0);
@@ -195,7 +195,7 @@ namespace WooCommerceApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(1336, 763);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.lbArrowPrevious);
@@ -207,6 +207,7 @@ namespace WooCommerceApp
             this.RightToLeftLayout = true;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Kalendarz zamówień";
+            this.Activated += new System.EventHandler(this.ReloadAllData);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);

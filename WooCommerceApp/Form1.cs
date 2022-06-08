@@ -25,6 +25,12 @@ namespace WooCommerceApp
             InitializeComponent();
         }
 
+        private void ReloadAllData(object sender, EventArgs e)
+        {
+            dayContainer.Controls.Clear();
+            SetUpMonthDays(_month, _year);
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -135,8 +141,11 @@ namespace WooCommerceApp
                 UserControlDays userControlDays = new UserControlDays(_dbService);
                 if(_currentDay == i && _currentMonth == _month && _currentYear == _year)
                 {
-                    userControlDays.BackColor = Color.FromArgb(15, 53, 111);
-                    userControlDays.SetlbDaysBackColor(Color.FromArgb(15, 53, 111));
+                    //userControlDays.BackColor = Color.FromArgb(214, 212, 212);
+                    //userControlDays.SetlbDaysBackColor(Color.FromArgb(214, 212, 212));
+                    userControlDays.SetlbDaysTextColor(Color.FromArgb(1, 180, 189));
+                    userControlDays.SetlbDescriptionNumOfOrdersTextColor(Color.FromArgb(1, 180, 189));
+                    userControlDays.SetlbNumOfOrdersTextColor(Color.FromArgb(1, 180, 189));
                 }
 
                 DateTime processingDay = new DateTime(_year, _month, i);

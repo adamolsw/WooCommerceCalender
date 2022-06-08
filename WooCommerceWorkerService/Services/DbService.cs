@@ -51,7 +51,7 @@ namespace WooCommerceWorkerService.Services
         public List<DbOrderModel> GetOrdersForSingleDayByDay(string date)
         {
             var sql = new StringBuilder();
-            sql.Append("SELECT * FROM [Order] WHERE DateEnd >= @date AND DateStart <= @date");
+            sql.Append("SELECT * FROM [Order] WHERE DateEnd >= @date AND DateStart <= @date AND Id NOT IN (SELECT OrderId FROM ExcludedDays WHERE ExcludedDay = @date)");
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
             return db.Query<DbOrderModel>(sql.ToString(), new { date }).ToList();
         }
@@ -59,11 +59,18 @@ namespace WooCommerceWorkerService.Services
         public List<DayDetailsModel> GetOrdersDetailsForSingleDayByDay(string date)
         {
             var sql = new StringBuilder();
-            sql.Append("SELECT c.FirstName, c.LastName, o.ProductName, o.DietDescription, a.Street, a.City, a.PostCode, c.Phone, c.Email ");
+            sql.Append("SELECT o.Id, c.FirstName, c.LastName, o.ProductName, o.DietDescription, a.Street, a.City, a.PostCode, c.Phone, c.Email ");
             sql.Append("FROM [Order] o INNER JOIN [Client] c ON o.ClientId = c.Id INNER JOIN Address a ON c.AddressId = a.Id ");
-            sql.Append("WHERE DateEnd >= @date AND DateStart <= @date ");
+            sql.Append("WHERE DateEnd >= @date AND DateStart <= @date AND o.Id NOT IN (SELECT OrderId FROM ExcludedDays WHERE ExcludedDay = @date)");
             using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
             return db.Query<DayDetailsModel>(sql.ToString(), new { date }).ToList();
+        }
+
+        public void  AddExcludedDay(int orderId, DateTime date)
+        {
+            var sqlQuery = "INSERT INTO ExcludedDays VALUES (@orderID, @date)";
+            using var db = new SqlConnection("server=LT-30015;database=WooCommerce;uid=WooAdmin;password=WooAdmin10");
+            db.Execute(sqlQuery, new { orderId, date });
         }
     }
 }

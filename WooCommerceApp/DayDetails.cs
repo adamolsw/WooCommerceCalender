@@ -31,8 +31,14 @@ namespace WooCommerceApp
 
         private void DayDetails_Load(object sender, EventArgs e)
         {
-            var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
-            dgvDailyDetails.DataSource = _dbService.GetOrdersDetailsForSingleDayByDay(date); 
+            LoadData();
+        }
+
+        public void ReloadData(object sender, EventArgs e)
+        {
+            dgvDailyDetails.DataSource = null;
+            dgvSummary.DataSource = null;
+            LoadData();
         }
 
         public void SetlbDayMonthYear()
@@ -46,10 +52,21 @@ namespace WooCommerceApp
             CurrentDateTime = CurrentDateTime.AddDays(1);
             SetlbDayMonthYear();
             dgvDailyDetails.DataSource = null;
+            dgvSummary.DataSource = null;
             if (!(CurrentDateTime.IsSunday() || CurrentDateTime.IsSaturday()))
             {
-                var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
-                dgvDailyDetails.DataSource = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+                var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day); 
+                var orders = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+                dgvSummary.DataSource = GetSummary(orders);
+                dgvDailyDetails.DataSource = orders;
+                dgvDailyDetails.Columns[0].Visible = false;
+                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+            }
+            else
+            {
+                dgvSummary.DataSource = new List<DayDetailsSummaryModel>();
+                dgvDailyDetails.DataSource = new List<DayDetailsModel>();
+                dgvDailyDetails.Columns[0].Visible = false;
             }
         }
 
@@ -58,10 +75,76 @@ namespace WooCommerceApp
             CurrentDateTime = CurrentDateTime.AddDays(-1);
             SetlbDayMonthYear();
             dgvDailyDetails.DataSource = null;
+            dgvSummary.DataSource = null;
             if (!(CurrentDateTime.IsSunday() || CurrentDateTime.IsSaturday()))
             {
                 var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
-                dgvDailyDetails.DataSource = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+                var orders = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+                dgvSummary.DataSource = GetSummary(orders);
+                dgvDailyDetails.DataSource = orders;
+                dgvDailyDetails.Columns[0].Visible = false;
+                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+            }
+            else
+            {
+                dgvSummary.DataSource = new List<DayDetailsSummaryModel>();
+                dgvDailyDetails.DataSource = new List<DayDetailsModel>();
+                dgvDailyDetails.Columns[0].Visible = false;
+            }
+        }
+
+        private List<DayDetailsSummaryModel> GetSummary(List<DayDetailsModel> dayDetailsModels)
+        {
+            var result = dayDetailsModels.GroupBy(g => g.ProductName).ToList();
+            DayDetailsSummaryModel sumOfAllDiets = new DayDetailsSummaryModel { ProductName = "Suma" };
+            List<DayDetailsSummaryModel> dayDetailsSummaryModels = new List<DayDetailsSummaryModel>();
+            foreach (var item in result)
+            {
+                dayDetailsSummaryModels.Add(new DayDetailsSummaryModel
+                {
+                    ProductName = item.Key,
+                    Sum = item.Count()
+                });
+                sumOfAllDiets.Sum += item.Count();
+            }
+            dayDetailsSummaryModels.Add(sumOfAllDiets);
+            return dayDetailsSummaryModels;
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnRemove_Click(object sender, EventArgs e)
+        {
+            RemoveDayPerOrder removeDayPerOrder = new RemoveDayPerOrder(_dbService);
+            if (dgvDailyDetails.CurrentCell != null)
+            {
+                int rowIndex = dgvDailyDetails.CurrentCell.RowIndex;
+                removeDayPerOrder.OrderId = Convert.ToInt32(dgvDailyDetails.Rows[rowIndex].Cells[0].Value);
+                removeDayPerOrder.CurrentDateTime = CurrentDateTime;
+                removeDayPerOrder.FullName = string.Concat(dgvDailyDetails.Rows[rowIndex].Cells[1].Value, " ", dgvDailyDetails.Rows[rowIndex].Cells[2].Value);                
+                removeDayPerOrder.ShowDialog();
+            }
+        }
+
+        private void LoadData()
+        {
+            var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
+            var orders = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+
+            if (!(CurrentDateTime.IsSunday() || CurrentDateTime.IsSaturday()))
+            {
+                dgvSummary.DataSource = GetSummary(orders);
+                dgvDailyDetails.DataSource = orders;
+                dgvDailyDetails.Columns[0].Visible = false;
+                dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
+            }
+            else
+            {
+                dgvSummary.DataSource = new List<DayDetailsSummaryModel>();
+                dgvDailyDetails.DataSource = new List<DayDetailsModel>();
+                dgvDailyDetails.Columns[0].Visible = false;
             }
         }
     }

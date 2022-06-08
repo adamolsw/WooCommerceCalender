@@ -63,6 +63,96 @@ namespace WooCommerceApp.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap add_button_icon_vector_21679778 {
+            get {
+                object obj = ResourceManager.GetObject("add-button-icon-vector-21679778", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap add_button_icon_vector_21679778_1_ {
+            get {
+                object obj = ResourceManager.GetObject("add-button-icon-vector-21679778(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap add_button_icon_vector_21679778_2_ {
+            get {
+                object obj = ResourceManager.GetObject("add-button-icon-vector-21679778(2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap add_button_icon_vector_21679778_3_ {
+            get {
+                object obj = ResourceManager.GetObject("add-button-icon-vector-21679778(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap addButton {
+            get {
+                object obj = ResourceManager.GetObject("addButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrowLeft_1_1 {
+            get {
+                object obj = ResourceManager.GetObject("arrowLeft(1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap arrowRight_1_ {
+            get {
+                object obj = ResourceManager.GetObject("arrowRight(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonOnHover_ConfirmRemove {
+            get {
+                object obj = ResourceManager.GetObject("buttonOnHover_ConfirmRemove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap buttonOnLeave_ConfirmRemove {
+            get {
+                object obj = ResourceManager.GetObject("buttonOnLeave_ConfirmRemove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap kindpng_105650_2_ {
             get {
                 object obj = ResourceManager.GetObject("kindpng_105650(2)", resourceCulture);
@@ -76,6 +166,36 @@ namespace WooCommerceApp.Properties {
         internal static System.Drawing.Bitmap kindpng_105650_3_ {
             get {
                 object obj = ResourceManager.GetObject("kindpng_105650(3)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap removeButton {
+            get {
+                object obj = ResourceManager.GetObject("removeButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap removeButton01 {
+            get {
+                object obj = ResourceManager.GetObject("removeButton01", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap removeButtonver02 {
+            get {
+                object obj = ResourceManager.GetObject("removeButtonver02", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

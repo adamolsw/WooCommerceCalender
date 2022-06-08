@@ -30,7 +30,7 @@ namespace WooCommerceApp
             DayDetails dayDetails = new DayDetails(_dbService);
             dayDetails.CurrentDateTime = new DateTime(Year, Month, Day);
             dayDetails.SetlbDayMonthYear(); 
-            dayDetails.Show();
+            dayDetails.ShowDialog();
         }
 
         public void Days(int numDay)
@@ -48,6 +48,16 @@ namespace WooCommerceApp
         public void SetlbDaysTextColor(Color color)
         {
             lbDays.ForeColor = color;
+        }
+
+        public void SetlbDescriptionNumOfOrdersTextColor(Color color)
+        {
+            lbDescriptionNumOfOrders.ForeColor = color;
+        }
+
+        public void SetlbNumOfOrdersTextColor(Color color)
+        {
+            lbNumOfOrders.ForeColor = color;
         }
 
         public void SetlbNumOfOrdersText(int numOfOrders)

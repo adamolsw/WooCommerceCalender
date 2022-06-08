@@ -37,9 +37,9 @@ namespace WooCommerceApp
             // lbDays
             // 
             this.lbDays.AutoSize = true;
-            this.lbDays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.lbDays.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbDays.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbDays.ForeColor = System.Drawing.Color.White;
+            this.lbDays.ForeColor = System.Drawing.Color.Black;
             this.lbDays.Location = new System.Drawing.Point(4, 4);
             this.lbDays.Name = "lbDays";
             this.lbDays.Size = new System.Drawing.Size(25, 19);
@@ -49,9 +49,9 @@ namespace WooCommerceApp
             // 
             // lbNumOfOrders
             // 
-            this.lbNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.lbNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbNumOfOrders.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbNumOfOrders.ForeColor = System.Drawing.Color.White;
+            this.lbNumOfOrders.ForeColor = System.Drawing.Color.Black;
             this.lbNumOfOrders.Location = new System.Drawing.Point(101, 54);
             this.lbNumOfOrders.Name = "lbNumOfOrders";
             this.lbNumOfOrders.Size = new System.Drawing.Size(79, 45);
@@ -63,9 +63,9 @@ namespace WooCommerceApp
             // lbDescriptionNumOfOrders
             // 
             this.lbDescriptionNumOfOrders.AutoSize = true;
-            this.lbDescriptionNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.lbDescriptionNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbDescriptionNumOfOrders.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbDescriptionNumOfOrders.ForeColor = System.Drawing.Color.White;
+            this.lbDescriptionNumOfOrders.ForeColor = System.Drawing.Color.Black;
             this.lbDescriptionNumOfOrders.Location = new System.Drawing.Point(4, 74);
             this.lbDescriptionNumOfOrders.Name = "lbDescriptionNumOfOrders";
             this.lbDescriptionNumOfOrders.Size = new System.Drawing.Size(112, 19);
@@ -78,7 +78,7 @@ namespace WooCommerceApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(4)))), ((int)(((byte)(78)))), ((int)(((byte)(112)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.Controls.Add(this.lbDescriptionNumOfOrders);
             this.Controls.Add(this.lbNumOfOrders);
             this.Controls.Add(this.lbDays);

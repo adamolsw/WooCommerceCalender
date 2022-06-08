@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using WooCommerceDomain.Models;
 using WooCommerceDomain.Models.DbModels;
 
@@ -11,5 +12,6 @@ namespace WooCommerceWorkerService.Services
         string GetCreateDateOfLastOrder();
         List<DbOrderModel> GetOrdersForSingleDayByDay(string date);
         List<DayDetailsModel> GetOrdersDetailsForSingleDayByDay(string date);
+        void AddExcludedDay(int orderId, DateTime date);
     }
 }
