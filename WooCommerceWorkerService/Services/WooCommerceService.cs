@@ -2,9 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
+using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using WooCommerceDomain.Models.DbModels;
@@ -15,8 +13,8 @@ namespace WooCommerceWorkerService.Services
 {
     public class WooCommerceService : IWooCommerceService
     {
-        private const string URL = "https://hashtagdietcatering.pl/wp-json/wc/v3/";
-        private string urlParameters = "?consumer_secret=cs_4a6d797f575a3b795255f7e5a8c6b0c61c87b372&consumer_key=ck_9b6d85e5d46e4eb8c3df394c110fa829be8b9600&fbclid";
+        private string URL = "https://hashtagdietcatering.pl/wp-json/wc/v3/";
+        private string urlParameters;
         private ILogger<WooCommerceService> _logger;
 
         public object AddOrder { get; private set; }
@@ -24,6 +22,10 @@ namespace WooCommerceWorkerService.Services
         public WooCommerceService(ILogger<WooCommerceService> logger)
         {
             _logger = logger;
+            var secretKey = ConfigurationManager.AppSettings["SecretKey"];
+            var consumerKey = ConfigurationManager.AppSettings["ConsumerKey"];
+            URL = ConfigurationManager.AppSettings["URL"];
+            urlParameters = string.Concat("?consumer_secret=", secretKey, "&consumer_key=", consumerKey);
         }
 
         public List<DbProductModel> GetAllProductsAsync()
@@ -39,7 +41,8 @@ namespace WooCommerceWorkerService.Services
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             try
             {
-                HttpResponseMessage response = client.GetAsync(urlParameters).Result; if (response.IsSuccessStatusCode)
+                HttpResponseMessage response = client.GetAsync(urlParameters).Result; 
+                if (response.IsSuccessStatusCode)
                 {
                     var dataObjects = response.Content.ReadAsStringAsync().Result;
                     var result = JsonConvert.DeserializeObject<IEnumerable<RawProductModel>>(dataObjects);
