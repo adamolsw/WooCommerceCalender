@@ -112,7 +112,7 @@ namespace WooCommerceWorkerService.Services
                 if (DateTime.Now < dateTime)
                 {
                     var sql = new StringBuilder();
-                    sql.Append("SELECT * FROM [Order] WHERE DateEnd >= @date AND DateStart <= @date AND Id NOT IN (SELECT OrderId FROM ExcludedDays WHERE ExcludedDay = @date)");
+                    sql.Append("SELECT * FROM [Order] WHERE Status != 'cancelled' AND DateEnd >= @date AND DateStart <= @date AND Id NOT IN (SELECT OrderId FROM ExcludedDays WHERE ExcludedDay = @date)");
                     using var db = new SqlConnection(_conn);
                     var result = db.Query<DbOrderModel>(sql.ToString(), new { date }).ToList();
                     _logger.LogInformation($"End - Orders for single day from database. Found {result.Count} order for day {date}.");
