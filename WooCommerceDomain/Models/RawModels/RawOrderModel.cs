@@ -6,7 +6,7 @@ namespace WooCommerceDomain.Models.RawModels
     public class RawOrderModel
     {
         [JsonProperty("id")]
-        public int Id { get; set; }
+        public int OrderId { get; set; }
         [JsonProperty("status")]
         public string Status { get; set; }
         [JsonProperty("date_created")]

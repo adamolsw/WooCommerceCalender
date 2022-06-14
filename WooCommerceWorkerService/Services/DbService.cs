@@ -30,8 +30,8 @@ namespace WooCommerceWorkerService.Services
                 using var db = new SqlConnection(_conn);
                 var addressId = db.QuerySingle<int>(@" INSERT INTO Address (Street, City, PostCode) OUTPUT INSERTED.Id VALUES (@Street, @City, @PostCode);", new { dbOrderModel.Client.Address.Street, dbOrderModel.Client.Address.City, dbOrderModel.Client.Address.PostCode });
                 var clientId = db.QuerySingle<int>(@" INSERT INTO Client (FirstName, LastName, Email, Phone, AddressId, Birthday) OUTPUT INSERTED.Id VALUES (@FirstName, @LastName, @Email, @Phone, @AddressId, @Birthday);", new { dbOrderModel.Client.FirstName, dbOrderModel.Client.LastName, dbOrderModel.Client.Email, dbOrderModel.Client.Phone, addressId, dbOrderModel.Client.Birthday });
-                var result = db.QuerySingle<int>(@" INSERT INTO [Order] (Id, Status, DateCreated, ProductName, Total, DaysCount, DateStart, DateEnd, DietDescription, ClientId) OUTPUT INSERTED.Id VALUES (@Id, @Status, @DateCreated, @ProductName, @Total, @DaysCount, @DateStart, @DateEnd, @DietDescription, @ClientId)"
-                                , new { dbOrderModel.Id, dbOrderModel.Status, dbOrderModel.DateCreated, dbOrderModel.ProductName, dbOrderModel.Total, dbOrderModel.DaysCount, dbOrderModel.DateStart, dbOrderModel.DateEnd, dbOrderModel.DietDescription, clientId });
+                var result = db.QuerySingle<int>(@" INSERT INTO [Order] (OrderId, Status, DateCreated, ProductName, Total, DaysCount, DateStart, DateEnd, DietDescription, ClientId) OUTPUT INSERTED.Id VALUES (@OrderId, @Status, @DateCreated, @ProductName, @Total, @DaysCount, @DateStart, @DateEnd, @DietDescription, @ClientId)"
+                                , new { dbOrderModel.OrderId, dbOrderModel.Status, dbOrderModel.DateCreated, dbOrderModel.ProductName, dbOrderModel.Total, dbOrderModel.DaysCount, dbOrderModel.DateStart, dbOrderModel.DateEnd, dbOrderModel.DietDescription, clientId });
             }
             catch (Exception e)
             {

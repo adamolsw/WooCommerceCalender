@@ -16,52 +16,57 @@ namespace WooCommerceWorkerService.Mapper
             var total = GetTotal(rawOrderModel);
             var metaDataItemlist = GetMetaDataItemList(rawOrderModel);
             List<DbOrderModel> dbOrderModelList = new List<DbOrderModel>();
-
+   
             foreach (var metaDatalist in metaDataItemlist)
             {
-                var metaDataDaysCount = metaDatalist.Where(m => m.Key.Equals("Ilość dni"));
-                var daysCount = GetDaysNumber(GetDaysCount(metaDataDaysCount));
-
-                var startDay = GetStartDay(metaDatalist);
-                var endDay = GetEndDate(startDay, daysCount);
-                var birthday = GetBirthday(rawOrderModel.MainMetaDataModels);
-
-                string metaDataDietDescription = GetMetaDataDietDescription(metaDatalist);
-
-                AddressModel addressModel = new AddressModel
+                foreach (var item in metaDatalist)
                 {
-                    Street = rawOrderModel.BillingModels.Street,
-                    City = rawOrderModel.BillingModels.City,
-                    PostCode = rawOrderModel.BillingModels.PostCode
-                };
+                    for (int i = 0; i < item.Key; i++)
+                    {
+                        var metaDataDaysCount = item.Value.Where(m => m.Key.Equals("Ilość dni"));
+                        var daysCount = GetDaysNumber(GetDaysCount(metaDataDaysCount));
 
-                ClientModel clientModel = new ClientModel
-                {
-                    FirstName = rawOrderModel.BillingModels.FirstName,
-                    LastName = rawOrderModel.BillingModels.LastName,
-                    Email = rawOrderModel.BillingModels.Email,
-                    Phone = rawOrderModel.BillingModels.Phone,
-                    Birthday = birthday,
-                    Address = addressModel
-                };
+                        var startDay = GetStartDay(item.Value);
+                        var endDay = GetEndDate(startDay, daysCount);
+                        var birthday = GetBirthday(rawOrderModel.MainMetaDataModels);
 
-                DbOrderModel dbOrderModel = new DbOrderModel
-                {
-                    Id = rawOrderModel.Id,
-                    Status = rawOrderModel.Status,
-                    DateCreated = rawOrderModel.DateCreated,
-                    ProductName = productName,
-                    Total = total,
-                    DaysCount = daysCount,
-                    DateStart = DateTime.ParseExact(startDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                    DateEnd = DateTime.ParseExact(endDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                    DietDescription = metaDataDietDescription,
-                    Client = clientModel
-                };
+                        string metaDataDietDescription = GetMetaDataDietDescription(item.Value);
 
-                dbOrderModelList.Add(dbOrderModel);
+                        AddressModel addressModel = new AddressModel
+                        {
+                            Street = rawOrderModel.BillingModels.Street,
+                            City = rawOrderModel.BillingModels.City,
+                            PostCode = rawOrderModel.BillingModels.PostCode
+                        };
+
+                        ClientModel clientModel = new ClientModel
+                        {
+                            FirstName = rawOrderModel.BillingModels.FirstName,
+                            LastName = rawOrderModel.BillingModels.LastName,
+                            Email = rawOrderModel.BillingModels.Email,
+                            Phone = rawOrderModel.BillingModels.Phone,
+                            Birthday = birthday,
+                            Address = addressModel
+                        };
+
+                        DbOrderModel dbOrderModel = new DbOrderModel
+                        {
+                            OrderId = rawOrderModel.OrderId,
+                            Status = rawOrderModel.Status,
+                            DateCreated = rawOrderModel.DateCreated,
+                            ProductName = productName,
+                            Total = total,
+                            DaysCount = daysCount,
+                            DateStart = DateTime.ParseExact(startDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            DateEnd = DateTime.ParseExact(endDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                            DietDescription = metaDataDietDescription,
+                            Client = clientModel
+                        };
+
+                        dbOrderModelList.Add(dbOrderModel);
+                    }
+                }
             }
-
             return dbOrderModelList;
         }
         
@@ -123,16 +128,23 @@ namespace WooCommerceWorkerService.Mapper
             }
         }
 
-        private List<List<MetaDataModel>> GetMetaDataItemList(RawOrderModel rawOrderModel)
+        private List<Dictionary<int, List<MetaDataModel>>> GetMetaDataItemList(RawOrderModel rawOrderModel)
         {
             try
             {
-                return rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).Select(l => l.MetaDataModels).ToList(); ;
-                //return rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).FirstOrDefault().MetaDataModels;
+                List<Dictionary<int, List<MetaDataModel>>> keyValuePairs = new List<Dictionary<int, List<MetaDataModel>>>();
+                var result = rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).Select(l => new { l.Quantity, l.MetaDataModels }).ToList();
+                foreach (var item in result)
+                {
+                    Dictionary<int, List<MetaDataModel>> dict = new Dictionary<int, List<MetaDataModel>>();
+                    dict.Add(item.Quantity, item.MetaDataModels);
+                    keyValuePairs.Add(dict);
+                }
+                return keyValuePairs;
             }
             catch (Exception)
             {
-                return new List<List<MetaDataModel>>();
+                return new List<Dictionary<int, List<MetaDataModel>>>();
                 //throw;
             }
         }

@@ -15,5 +15,6 @@ namespace WooCommerceDomain.Models.DbModels
         public DateTime DateEnd { get; set; }
         public string DietDescription { get; set; }
         public ClientModel Client { get; set; }
+        public int OrderId { get; set; }
     }
 }

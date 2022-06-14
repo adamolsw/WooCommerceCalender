@@ -69,7 +69,7 @@ namespace WooCommerceApp
             var cbxSelectedText = cbxProducts.SelectedItem.ToString();
 
             var maxOrderId = _dbService.GetMaxOrderid();
-            maxOrderId = maxOrderId < 900000001 ? 900000001 : maxOrderId + 1; 
+            maxOrderId = maxOrderId < 900000001 ? 900000001 : maxOrderId + 1;
 
             AddressModel addressModel = new AddressModel
             {
@@ -99,7 +99,7 @@ namespace WooCommerceApp
                 ProductName = cbxSelectedText,
                 Status = "processing",
                 Total = "0.0",
-                Id = maxOrderId
+                OrderId = maxOrderId
             };
 
             _dbService.AddOrder(dbOrderModel);

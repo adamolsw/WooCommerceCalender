@@ -92,7 +92,7 @@ namespace WooCommerceWorkerService.Services
 
                     foreach (var item in result)
                     {
-                        _logger.LogInformation($"The Order with Id {item.Id} has been downloaded");
+                        _logger.LogInformation($"The Order with Id {item.OrderId} has been downloaded");
                         dbOrderModels.AddRange(customMapper.MapRawOrderToDbOrder(item));
                     }
                 }
