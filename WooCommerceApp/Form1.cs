@@ -190,6 +190,11 @@ namespace WooCommerceApp
             userDetails.Show();
         }
 
+        private void label11_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void SetArrowNextOnHover(object sender, EventArgs e)
         {
             lbArrowNext.BorderStyle = BorderStyle.FixedSingle;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 
 namespace WooCommerceDomain.Models
 {
@@ -17,11 +18,9 @@ namespace WooCommerceDomain.Models
         public string Street { get; set; }
         [DisplayName("Miasto")]
         public string City { get; set; }
-        [DisplayName("Kod pocztowy")]
-        public string PostCode { get; set; }
         [DisplayName("Telefon")]
         public string Phone { get; set; }
-        [DisplayName("Email")]
-        public string Email { get; set; }
+        [DisplayName("Urodziny")]
+        public DateTime Birthday { get; set; }
     }
 }

@@ -6,6 +6,8 @@ namespace WooCommerceDomain.Models
     {
         [DisplayName("Dieta")]
         public string ProductName { get; set; }
+        [DisplayName("Kaloryczność")]
+        public string Kacl { get; set; }
         [DisplayName("Ilość zamówień")]
         public int Sum { get; set; }
     }

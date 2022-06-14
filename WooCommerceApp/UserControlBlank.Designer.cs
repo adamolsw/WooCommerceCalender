@@ -47,7 +47,7 @@ namespace WooCommerceApp
             this.Controls.Add(this.label1);
             this.Enabled = false;
             this.Name = "UserControlBlank";
-            this.Size = new System.Drawing.Size(182, 101);
+            this.Size = new System.Drawing.Size(159, 91);
             this.ResumeLayout(false);
             this.PerformLayout();
 

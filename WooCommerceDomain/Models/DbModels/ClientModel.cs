@@ -1,4 +1,6 @@
-﻿namespace WooCommerceDomain.Models.DbModels
+﻿using System;
+
+namespace WooCommerceDomain.Models.DbModels
 {
     public class ClientModel
     {
@@ -9,5 +11,6 @@
         public string Phone { get; set; }
         public AddressModel Address { get; set; }
         public int AddressId { get; set; }
+        public DateTime? Birthday { get; set; }
     }
 }

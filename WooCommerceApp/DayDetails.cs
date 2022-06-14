@@ -55,7 +55,7 @@ namespace WooCommerceApp
             dgvSummary.DataSource = null;
             if (!(CurrentDateTime.IsSunday() || CurrentDateTime.IsSaturday()))
             {
-                var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day); 
+                var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
                 var orders = _dbService.GetOrdersDetailsForSingleDayByDay(date);
                 dgvSummary.DataSource = GetSummary(orders);
                 dgvDailyDetails.DataSource = orders;
@@ -71,6 +71,7 @@ namespace WooCommerceApp
                 dgvDailyDetails.DataSource = new List<DayDetailsModel>();
                 dgvDailyDetails.Columns[0].Visible = false;
             }
+            LoadClientBirthDay();
         }
 
         private void lbArrowPrevious_Click(object sender, EventArgs e)
@@ -97,18 +98,20 @@ namespace WooCommerceApp
                 dgvDailyDetails.DataSource = new List<DayDetailsModel>();
                 dgvDailyDetails.Columns[0].Visible = false;
             }
+            LoadClientBirthDay();
         }
 
         private List<DayDetailsSummaryModel> GetSummary(List<DayDetailsModel> dayDetailsModels)
         {
-            var result = dayDetailsModels.GroupBy(g => g.ProductName).ToList();
+            var result = dayDetailsModels.GroupBy(g => new { g.ProductName, g.DietDescription }).OrderBy(g => g.Key.ProductName).ToList();
             DayDetailsSummaryModel sumOfAllDiets = new DayDetailsSummaryModel { ProductName = "Suma" };
             List<DayDetailsSummaryModel> dayDetailsSummaryModels = new List<DayDetailsSummaryModel>();
             foreach (var item in result)
             {
                 dayDetailsSummaryModels.Add(new DayDetailsSummaryModel
                 {
-                    ProductName = item.Key,
+                    ProductName = item.Key.ProductName,
+                    Kacl = item.Key.DietDescription,
                     Sum = item.Count()
                 });
                 sumOfAllDiets.Sum += item.Count();
@@ -132,7 +135,7 @@ namespace WooCommerceApp
                 int rowIndex = dgvDailyDetails.CurrentCell.RowIndex;
                 removeDayPerOrder.OrderId = Convert.ToInt32(dgvDailyDetails.Rows[rowIndex].Cells[0].Value);
                 removeDayPerOrder.CurrentDateTime = CurrentDateTime;
-                removeDayPerOrder.FullName = string.Concat(dgvDailyDetails.Rows[rowIndex].Cells[1].Value, " ", dgvDailyDetails.Rows[rowIndex].Cells[2].Value);                
+                removeDayPerOrder.FullName = string.Concat(dgvDailyDetails.Rows[rowIndex].Cells[1].Value, " ", dgvDailyDetails.Rows[rowIndex].Cells[2].Value);
                 removeDayPerOrder.ShowDialog();
             }
         }
@@ -147,10 +150,10 @@ namespace WooCommerceApp
                 dgvSummary.DataSource = GetSummary(orders);
                 dgvDailyDetails.DataSource = orders;
                 dgvDailyDetails.Columns[0].Visible = false;
-                if(dgvDailyDetails.Rows.Count> 0)
+                if (dgvDailyDetails.Rows.Count > 0)
                 {
                     dgvDailyDetails.CurrentCell = dgvDailyDetails.Rows[0].Cells[1];
-                }                
+                }
             }
             else
             {
@@ -158,6 +161,30 @@ namespace WooCommerceApp
                 dgvDailyDetails.DataSource = new List<DayDetailsModel>();
                 dgvDailyDetails.Columns[0].Visible = false;
             }
+            LoadClientBirthDay();
+        }
+        private bool IsBirthday(DateTime dateTime)
+        {
+            return dateTime.Month == CurrentDateTime.Month && dateTime.Day == CurrentDateTime.Day;
+        }
+
+        private void LoadClientBirthDay()
+        {
+            var date = string.Concat(CurrentDateTime.Year, "-", CurrentDateTime.Month, "-", CurrentDateTime.Day);
+            var orders = _dbService.GetOrdersDetailsForSingleDayByDay(date);
+            List<Birthday> clientBirthdayList = new List<Birthday>();
+            dgvBirthday.DataSource = clientBirthdayList;
+            foreach (var order in orders)
+            {
+                if (IsBirthday(order.Birthday))
+                {
+                    if(clientBirthdayList.Where(d => d.FullName.Equals(string.Concat(order.FirstName, " ", order.LastName))).Count() == 0)
+                    {
+                        clientBirthdayList.Add(new Birthday { FullName = string.Concat(order.FirstName, " ", order.LastName) });
+                    }
+                }
+            }
+            dgvBirthday.DataSource = clientBirthdayList.Distinct().ToList();
         }
     }
 }

@@ -26,9 +26,10 @@ namespace WooCommerceWorkerService.Services
             _logger.LogInformation("Start - Add order to database");
             try
             {
+                _logger.LogInformation($"Connection string: {_conn}");
                 using var db = new SqlConnection(_conn);
                 var addressId = db.QuerySingle<int>(@" INSERT INTO Address (Street, City, PostCode) OUTPUT INSERTED.Id VALUES (@Street, @City, @PostCode);", new { dbOrderModel.Client.Address.Street, dbOrderModel.Client.Address.City, dbOrderModel.Client.Address.PostCode });
-                var clientId = db.QuerySingle<int>(@" INSERT INTO Client (FirstName, LastName, Email, Phone, AddressId) OUTPUT INSERTED.Id VALUES (@FirstName, @LastName, @Email, @Phone, @AddressId);", new { dbOrderModel.Client.FirstName, dbOrderModel.Client.LastName, dbOrderModel.Client.Email, dbOrderModel.Client.Phone, addressId });
+                var clientId = db.QuerySingle<int>(@" INSERT INTO Client (FirstName, LastName, Email, Phone, AddressId, Birthday) OUTPUT INSERTED.Id VALUES (@FirstName, @LastName, @Email, @Phone, @AddressId, @Birthday);", new { dbOrderModel.Client.FirstName, dbOrderModel.Client.LastName, dbOrderModel.Client.Email, dbOrderModel.Client.Phone, addressId, dbOrderModel.Client.Birthday });
                 var result = db.QuerySingle<int>(@" INSERT INTO [Order] (Id, Status, DateCreated, ProductName, Total, DaysCount, DateStart, DateEnd, DietDescription, ClientId) OUTPUT INSERTED.Id VALUES (@Id, @Status, @DateCreated, @ProductName, @Total, @DaysCount, @DateStart, @DateEnd, @DietDescription, @ClientId)"
                                 , new { dbOrderModel.Id, dbOrderModel.Status, dbOrderModel.DateCreated, dbOrderModel.ProductName, dbOrderModel.Total, dbOrderModel.DaysCount, dbOrderModel.DateStart, dbOrderModel.DateEnd, dbOrderModel.DietDescription, clientId });
             }
@@ -45,6 +46,7 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - Get products from database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 var sql = new StringBuilder();
                 sql.Append("SELECT Id, Name FROM [Product]");
                 using var db = new SqlConnection(_conn);
@@ -59,11 +61,32 @@ namespace WooCommerceWorkerService.Services
             }
         }
 
+        public List<string> GetDietDescription()
+        {
+            try
+            {
+                _logger.LogInformation("Start - Get descriptions from database");
+                _logger.LogInformation($"Connection string: {_conn}");
+                var sql = new StringBuilder();
+                sql.Append("SELECT Distinct DietDescription FROM [Order] ");
+                using var db = new SqlConnection(_conn);
+                var result = db.Query<string>(sql.ToString()).ToList();
+                _logger.LogInformation($"End - Get descriptions from database. Found {result.Count} descriptions.");
+                return result;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Database error");
+                return new List<string>();
+            }
+        }
+
         public string GetCreateDateOfLastOrder()
         {
             try
             {
                 _logger.LogInformation("Start - Get date of last order from database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 var sql = new StringBuilder();
                 sql.Append("SELECT Max(DateCreated) FROM [Order]");
                 using var db = new SqlConnection(_conn);
@@ -84,6 +107,7 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - Orders for single day from database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 DateTime dateTime = new DateTime(2022, 07, 11);
                 if (DateTime.Now < dateTime)
                 {
@@ -109,11 +133,12 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - Orders details for single day from database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 DateTime dateTime = new DateTime(2022, 07, 11);
                 if (DateTime.Now < dateTime)
                 {
                     var sql = new StringBuilder();
-                    sql.Append("SELECT o.Id, c.FirstName, c.LastName, o.ProductName, o.DietDescription, a.Street, a.City, a.PostCode, c.Phone, c.Email ");
+                    sql.Append("SELECT o.Id, c.FirstName, c.LastName, o.ProductName, o.DietDescription, a.Street, a.City, a.PostCode, c.Phone, c.Email, c.Birthday ");
                     sql.Append("FROM [Order] o INNER JOIN [Client] c ON o.ClientId = c.Id INNER JOIN Address a ON c.AddressId = a.Id ");
                     sql.Append("WHERE DateEnd >= @date AND DateStart <= @date AND o.Id NOT IN (SELECT OrderId FROM ExcludedDays WHERE ExcludedDay = @date)");
                     using var db = new SqlConnection(_conn);
@@ -137,6 +162,7 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - Add excluded day to database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 var sqlQuery = "INSERT INTO ExcludedDays VALUES (@orderID, @date)";
                 using var db = new SqlConnection(_conn);
                 db.Execute(sqlQuery, new { orderId, date });
@@ -154,6 +180,7 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - Add products to database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 var sqlQueries = GetProductSqlsInBatchesToInsert(product);
                 using var db = new SqlConnection(_conn);
                 db.Execute("DELETE FROM [Product]");
@@ -174,6 +201,7 @@ namespace WooCommerceWorkerService.Services
             try
             {
                 _logger.LogInformation("Start - max order id from database");
+                _logger.LogInformation($"Connection string: {_conn}");
                 var sql = new StringBuilder();
                 sql.Append("Select MAX(id) FROM [Order]");
                 using var db = new SqlConnection(_conn);

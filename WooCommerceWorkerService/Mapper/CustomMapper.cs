@@ -10,49 +10,77 @@ namespace WooCommerceWorkerService.Mapper
 {
     public class CustomMapper
     {
-        public DbOrderModel MapRawOrderToDbOrder(RawOrderModel rawOrderModel)
+        public List<DbOrderModel> MapRawOrderToDbOrder(RawOrderModel rawOrderModel)
         {
             var productName = GetProductName(rawOrderModel);
             var total = GetTotal(rawOrderModel);
-            var metaDatalist = GetMetaDataList(rawOrderModel);
+            var metaDataItemlist = GetMetaDataItemList(rawOrderModel);
+            List<DbOrderModel> dbOrderModelList = new List<DbOrderModel>();
 
-            var metaDataDaysCount = metaDatalist.Where(m => m.Key.Equals("Ilość dni"));
-            var daysCount = GetDaysNumber(GetDaysCount(metaDataDaysCount));
-
-            var startDay = GetStartDay(metaDatalist);
-            var endDay = GetEndDate(startDay, daysCount);
-
-            string metaDataDietDescription = GetMetaDataDietDescription(metaDatalist);
-
-            AddressModel addressModel = new AddressModel
+            foreach (var metaDatalist in metaDataItemlist)
             {
-                Street = rawOrderModel.BillingModels.Street,
-                City = rawOrderModel.BillingModels.City,
-                PostCode = rawOrderModel.BillingModels.PostCode
-            };
+                var metaDataDaysCount = metaDatalist.Where(m => m.Key.Equals("Ilość dni"));
+                var daysCount = GetDaysNumber(GetDaysCount(metaDataDaysCount));
 
-            ClientModel clientModel = new ClientModel
-            {
-                FirstName = rawOrderModel.BillingModels.FirstName,
-                LastName = rawOrderModel.BillingModels.LastName,
-                Email = rawOrderModel.BillingModels.Email,
-                Phone = rawOrderModel.BillingModels.Phone,
-                Address = addressModel
-            };
+                var startDay = GetStartDay(metaDatalist);
+                var endDay = GetEndDate(startDay, daysCount);
+                var birthday = GetBirthday(rawOrderModel.MainMetaDataModels);
 
-            return new DbOrderModel
+                string metaDataDietDescription = GetMetaDataDietDescription(metaDatalist);
+
+                AddressModel addressModel = new AddressModel
+                {
+                    Street = rawOrderModel.BillingModels.Street,
+                    City = rawOrderModel.BillingModels.City,
+                    PostCode = rawOrderModel.BillingModels.PostCode
+                };
+
+                ClientModel clientModel = new ClientModel
+                {
+                    FirstName = rawOrderModel.BillingModels.FirstName,
+                    LastName = rawOrderModel.BillingModels.LastName,
+                    Email = rawOrderModel.BillingModels.Email,
+                    Phone = rawOrderModel.BillingModels.Phone,
+                    Birthday = birthday,
+                    Address = addressModel
+                };
+
+                DbOrderModel dbOrderModel = new DbOrderModel
+                {
+                    Id = rawOrderModel.Id,
+                    Status = rawOrderModel.Status,
+                    DateCreated = rawOrderModel.DateCreated,
+                    ProductName = productName,
+                    Total = total,
+                    DaysCount = daysCount,
+                    DateStart = DateTime.ParseExact(startDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                    DateEnd = DateTime.ParseExact(endDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                    DietDescription = metaDataDietDescription,
+                    Client = clientModel
+                };
+
+                dbOrderModelList.Add(dbOrderModel);
+            }
+
+            return dbOrderModelList;
+        }
+        
+
+        private DateTime? GetBirthday(List<MainMetaDataModel> mainMetaDataModels)
+        {
+            try
             {
-                Id = rawOrderModel.Id,
-                Status = rawOrderModel.Status,
-                DateCreated = rawOrderModel.DateCreated,
-                ProductName = productName,
-                Total = total,
-                DaysCount = daysCount,
-                DateStart = DateTime.ParseExact(startDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                DateEnd = DateTime.ParseExact(endDay, "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                DietDescription = metaDataDietDescription,
-                Client = clientModel
-            };
+                if (mainMetaDataModels.Where(d => d.Key.Equals("data_urodzenia")).ToList().Count < 1)
+                {
+                    return null;
+                }
+                var result = mainMetaDataModels.Where(d => d.Key.Equals("data_urodzenia")).Select(d => d.Value).FirstOrDefault();
+                return Convert.ToDateTime(result);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         public DbProductModel MapRawProductToDbProduct(RawProductModel rawProductModel)
@@ -95,15 +123,16 @@ namespace WooCommerceWorkerService.Mapper
             }
         }
 
-        private List<MetaDataModel> GetMetaDataList(RawOrderModel rawOrderModel)
+        private List<List<MetaDataModel>> GetMetaDataItemList(RawOrderModel rawOrderModel)
         {
             try
             {
-                return rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).FirstOrDefault().MetaDataModels;
+                return rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).Select(l => l.MetaDataModels).ToList(); ;
+                //return rawOrderModel.LineItemModels.Where(l => !l.ProductName.Equals("Kaucja za pojemniki")).FirstOrDefault().MetaDataModels;
             }
             catch (Exception)
             {
-                return new List<MetaDataModel>();
+                return new List<List<MetaDataModel>>();
                 //throw;
             }
         }

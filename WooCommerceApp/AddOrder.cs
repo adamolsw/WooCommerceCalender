@@ -48,6 +48,14 @@ namespace WooCommerceApp
             cbxProducts.DropDownStyle = ComboBoxStyle.DropDownList;
             txbDate.Text = CurrentDateTime.ToString("yyyy-MM-dd");
             cbxProducts.SelectedIndex = 0;
+
+            var descriptions = _dbService.GetDietDescription();
+            foreach (var item in descriptions)
+            {
+                cbxDietDescription.Items.Add(item);
+            }
+            cbxDietDescription.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbxDietDescription.SelectedIndex = 0;
         }
 
         private void lblCancel_Click(object sender, EventArgs e)
@@ -76,6 +84,7 @@ namespace WooCommerceApp
                 LastName = txbLastName.Text,
                 Email = txbEmail.Text,
                 Phone = txbPhone.Text,
+                Birthday = null,
                 Address = addressModel
             };
 
@@ -86,7 +95,7 @@ namespace WooCommerceApp
                 DateEnd = Convert.ToDateTime(txbDate.Text),
                 DateStart = Convert.ToDateTime(txbDate.Text),
                 DaysCount = 1,
-                DietDescription = txbDietDescription.Text,
+                DietDescription = cbxDietDescription.SelectedItem.ToString(),
                 ProductName = cbxSelectedText,
                 Status = "processing",
                 Total = "0.0",

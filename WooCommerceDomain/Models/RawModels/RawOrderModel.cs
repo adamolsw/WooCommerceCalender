@@ -1,9 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WooCommerceDomain.Models.RawModels
 {
@@ -19,5 +15,7 @@ namespace WooCommerceDomain.Models.RawModels
         public BillingModel BillingModels { get; set; }
         [JsonProperty("line_items")]
         public List<LineItemModel> LineItemModels { get; set; }
+        [JsonProperty("meta_data")]
+        public List<MainMetaDataModel> MainMetaDataModels { get; set; }
     }
 }

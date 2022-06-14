@@ -52,7 +52,7 @@ namespace WooCommerceApp
             this.lbNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbNumOfOrders.Font = new System.Drawing.Font("Calibri", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbNumOfOrders.ForeColor = System.Drawing.Color.Black;
-            this.lbNumOfOrders.Location = new System.Drawing.Point(101, 54);
+            this.lbNumOfOrders.Location = new System.Drawing.Point(80, 45);
             this.lbNumOfOrders.Name = "lbNumOfOrders";
             this.lbNumOfOrders.Size = new System.Drawing.Size(79, 45);
             this.lbNumOfOrders.TabIndex = 1;
@@ -66,12 +66,12 @@ namespace WooCommerceApp
             this.lbDescriptionNumOfOrders.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.lbDescriptionNumOfOrders.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbDescriptionNumOfOrders.ForeColor = System.Drawing.Color.Black;
-            this.lbDescriptionNumOfOrders.Location = new System.Drawing.Point(4, 74);
+            this.lbDescriptionNumOfOrders.Location = new System.Drawing.Point(3, 45);
             this.lbDescriptionNumOfOrders.Name = "lbDescriptionNumOfOrders";
-            this.lbDescriptionNumOfOrders.Size = new System.Drawing.Size(112, 19);
+            this.lbDescriptionNumOfOrders.Size = new System.Drawing.Size(78, 38);
             this.lbDescriptionNumOfOrders.TabIndex = 2;
-            this.lbDescriptionNumOfOrders.Text = "Ilość zamówień:";
-            this.lbDescriptionNumOfOrders.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbDescriptionNumOfOrders.Text = "Ilość \r\nzamówień:";
+            this.lbDescriptionNumOfOrders.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lbDescriptionNumOfOrders.Click += new System.EventHandler(this.UserControlDays_Load);
             // 
             // UserControlDays
@@ -85,7 +85,7 @@ namespace WooCommerceApp
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "UserControlDays";
-            this.Size = new System.Drawing.Size(182, 101);
+            this.Size = new System.Drawing.Size(159, 91);
             this.Load += new System.EventHandler(this.UserControlDays_Load_1);
             this.Click += new System.EventHandler(this.UserControlDays_Load);
             this.ResumeLayout(false);

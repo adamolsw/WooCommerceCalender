@@ -15,5 +15,6 @@ namespace WooCommerceWorkerService.Services
         void AddExcludedDay(int orderId, DateTime date);
         void AddProducts(List<DbProductModel> product);
         int GetMaxOrderid();
+        List<string> GetDietDescription();
     }
 }

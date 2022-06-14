@@ -41,7 +41,6 @@ namespace WooCommerceApp
             this.label12 = new System.Windows.Forms.Label();
             this.txbFirstName = new System.Windows.Forms.TextBox();
             this.txbLastName = new System.Windows.Forms.TextBox();
-            this.txbDietDescription = new System.Windows.Forms.TextBox();
             this.txbPhone = new System.Windows.Forms.TextBox();
             this.txbPostCode = new System.Windows.Forms.TextBox();
             this.txbCity = new System.Windows.Forms.TextBox();
@@ -53,6 +52,7 @@ namespace WooCommerceApp
             this.cbxProducts = new System.Windows.Forms.ComboBox();
             this.txbDate = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.cbxDietDescription = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -160,13 +160,6 @@ namespace WooCommerceApp
             this.txbLastName.Size = new System.Drawing.Size(324, 23);
             this.txbLastName.TabIndex = 10;
             // 
-            // txbDietDescription
-            // 
-            this.txbDietDescription.Location = new System.Drawing.Point(125, 167);
-            this.txbDietDescription.Name = "txbDietDescription";
-            this.txbDietDescription.Size = new System.Drawing.Size(324, 23);
-            this.txbDietDescription.TabIndex = 12;
-            // 
             // txbPhone
             // 
             this.txbPhone.Location = new System.Drawing.Point(125, 283);
@@ -270,12 +263,21 @@ namespace WooCommerceApp
             this.label11.Text = "Data:";
             this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
+            // cbxDietDescription
+            // 
+            this.cbxDietDescription.FormattingEnabled = true;
+            this.cbxDietDescription.Location = new System.Drawing.Point(125, 167);
+            this.cbxDietDescription.Name = "cbxDietDescription";
+            this.cbxDietDescription.Size = new System.Drawing.Size(324, 23);
+            this.cbxDietDescription.TabIndex = 24;
+            // 
             // AddOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(231)))), ((int)(((byte)(231)))));
             this.ClientSize = new System.Drawing.Size(473, 436);
+            this.Controls.Add(this.cbxDietDescription);
             this.Controls.Add(this.txbDate);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.cbxProducts);
@@ -287,7 +289,6 @@ namespace WooCommerceApp
             this.Controls.Add(this.txbPostCode);
             this.Controls.Add(this.txbCity);
             this.Controls.Add(this.txbStreet);
-            this.Controls.Add(this.txbDietDescription);
             this.Controls.Add(this.txbLastName);
             this.Controls.Add(this.txbFirstName);
             this.Controls.Add(this.label12);
@@ -323,7 +324,6 @@ namespace WooCommerceApp
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txbFirstName;
         private System.Windows.Forms.TextBox txbLastName;
-        private System.Windows.Forms.TextBox txbDietDescription;
         private System.Windows.Forms.TextBox txbPhone;
         private System.Windows.Forms.TextBox txbPostCode;
         private System.Windows.Forms.TextBox txbCity;
@@ -335,5 +335,6 @@ namespace WooCommerceApp
         private System.Windows.Forms.ComboBox cbxProducts;
         private System.Windows.Forms.TextBox txbDate;
         private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.ComboBox cbxDietDescription;
     }
 }
